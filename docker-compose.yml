@@ -1,0 +1,43 @@
+services:
+  web:
+    container_name: web
+    build: .
+    ports:
+      - "5173:5173"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/db?schema=public
+    depends_on:
+      - db
+    restart: always
+    volumes:
+      - .:/app
+
+  server:
+    container_name: server
+    build: ./server/
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./server:/app
+
+  db:
+    container_name: db
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
