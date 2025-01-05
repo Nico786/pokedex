@@ -3,8 +3,10 @@ import { gql } from '@apollo/client';
 export const GET_POKEMONS = gql`
   query GetPokemons {
     pokemons {
-      id
-      name
+      pokedex_id
+      name {
+        fr
+      }
       weight
       height
       sprites {
@@ -13,6 +15,7 @@ export const GET_POKEMONS = gql`
       }
       types {
         name
+        image
       }
       stats {
         atk
@@ -26,8 +29,10 @@ export const GET_POKEMONS = gql`
 export const GET_POKEMON = gql`
   query GetPokemon($name: String!) {
     pokemon(name: $name) {
-      id
-      name
+      pokedex_id
+      name {
+        fr
+      }
       weight
       height
       sprites {
@@ -36,6 +41,7 @@ export const GET_POKEMON = gql`
       }
       types {
         name
+        image
       }
       stats {
         atk

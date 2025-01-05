@@ -16,19 +16,22 @@ const typeDefs = gql`
   }
 
   type Pokemon {
-    id: Int!
-    name: String!
-    level: Int
-    weight: String!
-    height: String!
-    sprites: Sprite!
-    types: [Type!]!
-    stats: Stat!
+    pokedex_id: Int!
+    name: Name!
+    weight: String
+    height: String
+    sprites: Sprite
+    types: [Type]
+    stats: Stat
+  }
+
+  type Name {
+    fr: String!
   }
 
   type Sprite {
-    regular: String!
-    shiny: String!
+    regular: String
+    shiny: String
   }
 
   type Type {

@@ -8,14 +8,18 @@
 // };
 
 export type Pokemon = {
-  id: number;
-  name: string;
+  pokedex_id: number;
+  name: Name;
   level?: number;
   weight: string;
   height: string;
-  sprites: Sprite[];
+  sprites: Sprite;
   types: Type[];
-  stats: Stat[];
+  stats: Stat;
+};
+
+type Name = {
+  fr: string;
 };
 
 type Sprite = {
