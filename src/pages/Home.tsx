@@ -1,3 +1,9 @@
-export default function Home() {
-  return <h1>HOME COMPONENT</h1>;
-}
+const Home = () => {
+  return (
+    <div>
+      <h1>Home Page</h1>
+    </div>
+  );
+};
+
+export default Home;
