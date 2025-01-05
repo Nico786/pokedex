@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Container from "react-bootstrap/Container";
 import { ReactNode } from "react";
 
 interface MainLayoutProps {
@@ -8,8 +9,10 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
-      <Header />
-      <main>{children}</main>
+      <Container>
+        <Header />
+        <main>{children}</main>
+      </Container>
     </div>
   );
 };

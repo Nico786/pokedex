@@ -18,21 +18,21 @@ export type Pokemon = {
   stats: Stat;
 };
 
-type Name = {
+export type Name = {
   fr: string;
 };
 
-type Sprite = {
-  regular: number;
+export type Sprite = {
+  regular: string;
   shiny: string;
 };
 
-type Type = {
+export type Type = {
   name: string;
   image: string;
 };
 
-type Stat = {
+export type Stat = {
   atk: number;
   def: number;
   vit: number;
