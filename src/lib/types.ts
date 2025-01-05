@@ -12,23 +12,23 @@ export type Pokemon = {
   name: string;
   level?: number;
   weight: string;
+  height: string;
   sprites: Sprite[];
   types: Type[];
   stats: Stat[];
 };
 
 type Sprite = {
-  id: number;
-  url: string;
+  regular: number;
+  shiny: string;
 };
 
 type Type = {
-  id: number;
   name: string;
+  image: string;
 };
 
 type Stat = {
-  id: number;
   atk: number;
   def: number;
   vit: number;
