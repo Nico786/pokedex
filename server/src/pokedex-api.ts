@@ -1,0 +1,16 @@
+import { RESTDataSource } from '@apollo/datasource-rest';
+import { type Pokemon } from '../../src/lib/types';
+
+class PokedexAPI extends RESTDataSource {
+  override baseURL = 'https://tyradex.app/api/v1/';
+
+  async getPokemons(): Promise<Pokemon[]> {
+    return this.get<Pokemon[]>('pokemon');
+  }
+
+  async getPokemon(name: string): Promise<Pokemon> {
+    return this.get<Pokemon>(`pokemon/${encodeURIComponent(name)}`);
+  }
+}
+
+export { PokedexAPI };

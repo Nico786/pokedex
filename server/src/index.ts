@@ -1,7 +1,14 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { gql } from 'graphql-tag';
-import fetch from 'node-fetch';
+import { PokedexAPI } from './pokedex-api';
+
+interface ContextValue {
+  dataSources: {
+    pokedexAPI: PokedexAPI;
+  };
+
+}
 
 const typeDefs = gql`
   type Query {
@@ -17,10 +24,19 @@ const resolvers = {
 
 
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer<ContextValue>({ typeDefs, resolvers });
 
-startStandaloneServer(server, {
-  listen: { port: 4000 },
-}).then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
+const { url } = await startStandaloneServer(server, {
+
+  context: async () => {
+    const { cache } = server;
+    return {
+      dataSources: {
+        pokedexAPI: new PokedexAPI({ cache }),
+      },
+    };
+  }
 });
+
+console.log(`🚀  Server ready at: ${url}`);
+

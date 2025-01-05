@@ -20,6 +20,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "@apollo/datasource-rest": "^6.4.1",
     "@apollo/server": "^4.11.2",
     "@prisma/client": "^6.1.0",
     "graphql": "^16.10.0",
