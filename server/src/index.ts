@@ -7,22 +7,52 @@ interface ContextValue {
   dataSources: {
     pokedexAPI: PokedexAPI;
   };
-
 }
 
 const typeDefs = gql`
   type Query {
-    hello: String
+    pokemons: [Pokemon]!
+    pokemon(name: String!): Pokemon
+  }
+
+  type Pokemon {
+    id: Int!
+    name: String!
+    level: Int
+    weight: String!
+    height: String!
+    sprites: Sprite!
+    types: [Type!]!
+    stats: Stat!
+  }
+
+  type Sprite {
+    regular: String!
+    shiny: String!
+  }
+
+  type Type {
+    name: String
+    image: String
+  }
+
+  type Stat {
+    atk: Int
+    def: Int
+    vit: Int
   }
 `;
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello world',
-  },
+    pokemons: async (_, __, { dataSources }) => {
+      return dataSources.pokedexAPI.getPokemons();
+    },
+    pokemon: async (_, { name }, { dataSources }) => {
+      return dataSources.pokedexAPI.getPokemon(name);
+    }
+  }
 };
-
-
 
 const server = new ApolloServer<ContextValue>({ typeDefs, resolvers });
 
