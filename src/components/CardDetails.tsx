@@ -2,7 +2,8 @@ import { Pokemon } from "@/lib/types";
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { Row, Col, Table } from "react-bootstrap";
-import StatsGraph from "./StatsGraph";
+import Stats from "./Stats";
+import GeneralInfos from "./GeneralInfos";
 
 interface CardDetailsProps {
   show: boolean;
@@ -28,35 +29,22 @@ const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
       </Modal.Header>
       <Modal.Body>
         <Row className="modal-content">
-          <Col className="sprite">
-            <img src={pokemon.sprites.regular} alt={pokemon.name.fr} />
+          <Col className="sprite text-center">
+            <img
+              src={pokemon.sprites.regular}
+              alt={pokemon.name.fr}
+              width={300}
+            />
           </Col>
           <Col className="stats">
-            <StatsGraph stats={pokemon.stats} />
+            <Stats stats={pokemon.stats} />
           </Col>
           <Col className="infos">
-            <h3>Informations générales</h3>
-            <Table striped bordered hover>
-              <tbody>
-                <tr>
-                  <td>Height</td>
-                  <td>{pokemon.height}</td>
-                </tr>
-                <tr>
-                  <td>Weight</td>
-                  <td>{pokemon.weight}</td>
-                </tr>
-                {pokemon.types.map((type) => (
-                  <tr key={type.name}>
-                    <td>Type</td>
-                    <td>
-                      <img src={type.image} alt={type.name} />
-                      <span>{type.name}</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <GeneralInfos
+              height={pokemon.height}
+              weight={pokemon.weight}
+              types={pokemon.types}
+            />
           </Col>
         </Row>
       </Modal.Body>
