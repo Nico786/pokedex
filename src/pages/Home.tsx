@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Home Page</h1>
+      <h1>Pokedex App</h1>
       <InputField onSearch={handleSearch} />
       {loading && <p>Loading...</p>}
       {error && <p>Pokemon not found - Error: {error.message}</p>}

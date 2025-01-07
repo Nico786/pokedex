@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 
 const Header: React.FC = () => (
-  <header>
+  <header className="text-center">
     <Navbar />
   </header>
 );
