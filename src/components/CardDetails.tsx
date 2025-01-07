@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { Row, Col } from "react-bootstrap";
 import Stats from "./Stats";
 import GeneralInfos from "./GeneralInfos";
+import Sprite from "./Sprite";
 
 interface CardDetailsProps {
   show: boolean;
@@ -30,8 +31,9 @@ const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
       <Modal.Body>
         <Row className="modal-content">
           <Col className="sprite text-center">
-            <img
-              src={pokemon.sprites.regular}
+            <Sprite
+              regularSrc={pokemon.sprites.regular}
+              shinySrc={pokemon.sprites.shiny}
               alt={pokemon.name.fr}
               width={300}
             />

@@ -11,12 +11,28 @@ const Stats: React.FC<StatsProps> = ({ stats }) => {
 
   return (
     <div>
-      {statEntries.map(([key, value], index) => (
-        <div key={index} className="mb-2">
-          <h5>{key.toUpperCase()}</h5>
-          <ProgressBar now={value} max={100} label={`${value}`} />
-        </div>
-      ))}
+      {statEntries.map(([key, value], index) => {
+        let variant = "";
+        if (key === "atk") {
+          variant = "danger";
+        } else if (key === "def") {
+          variant = "success";
+        } else if (key === "vit") {
+          variant = "warning";
+        }
+
+        return (
+          <div key={index} className="mb-2">
+            <h5>{key.toUpperCase()}</h5>
+            <ProgressBar
+              now={value}
+              max={100}
+              label={`${value}`}
+              variant={`${variant}`}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
