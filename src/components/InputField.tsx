@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "./Button";
 
 const InputField: React.FC<{ onSearch: (name: string) => void }> = ({
   onSearch,
@@ -10,19 +9,20 @@ const InputField: React.FC<{ onSearch: (name: string) => void }> = ({
     setName(e.target.value);
   };
 
-  const handleButtonClick = () => {
-    onSearch(name);
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    name && onSearch(name);
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={onSubmit} className="text-center">
       <input
         type="text"
-        placeholder="Enter Pokemon name"
+        role="form"
+        placeholder="Entrez le nom du Pokemon"
         value={name}
         onChange={handleInputChange}
       />
-      <Button onClick={handleButtonClick} />
     </form>
   );
 };
