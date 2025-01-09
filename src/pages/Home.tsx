@@ -14,7 +14,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="mt-5">
       <InputField onSearch={handleSearch} />
       {loading && <p>Loading...</p>}
       {error && <p>Pokemon not found - Error: {error.message}</p>}

@@ -13,12 +13,15 @@ html, body {
 
 nav {
   margin-top: 5px;
-  background-color: whitesmoke;
+  background-color: #fecc02;
   padding: 1rem;
   border-radius: 25px;
+  border-style: solid;
+  border-color: #3063af;
+  border-width: thick;
   display: inline-block;
   justify-content: center;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
 }
 
 
@@ -27,16 +30,22 @@ nav a {
   margin-right: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 25px;
+  border-style: solid;
+  border-color: #3063af;
+  border-width: thick;
   text-decoration: none;
   color:black;
+  font-weight: bold;
   transition: background-color 0.3s ease;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
 }
 
 nav a:hover {
-  background-color: #bb4430;
+  background-color: #3063af;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
 }
 
 nav a.active {
-  background-color: #bb4430;
+  background-color: #3063af;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
+  color: #fecc02;
 }
