@@ -9,7 +9,7 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
-      <Container fluid className="p-0">
+      <Container fluid className="p-0" id="main">
         <Header />
         <main>{children}</main>
       </Container>
