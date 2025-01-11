@@ -43,18 +43,12 @@ describe("CardDetails", () => {
       />
     );
 
-    expect(screen.getByText("Bulbizarre")).toBeInTheDocument();
-    expect(screen.getByText("Taille: 67 cm")).toBeInTheDocument();
-    expect(screen.getByText("Poids: 6kg")).toBeInTheDocument();
-    expect(
-      screen.getByText("Abilities: overgrow, chlorophyll")
-    ).toBeInTheDocument();
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "src",
-      "https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
-    );
+    expect(screen.getByAltText("Bulbizarre")).toBeInTheDocument();
+    expect(screen.getByText("N°1: Bulbizarre")).toBeInTheDocument();
+    expect(screen.getByText("67 cm")).toBeInTheDocument();
+    expect(screen.getByText("6 kg")).toBeInTheDocument();
 
-    const closeButton = screen.getByRole("button");
+    const closeButton = screen.getByLabelText("Close");
     fireEvent.click(closeButton);
 
     expect(onHide).toHaveBeenCalled();

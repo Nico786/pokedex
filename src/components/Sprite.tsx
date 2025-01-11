@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import Button from "./Button";
 
 interface SpriteProps {
   regularSrc: string;
@@ -23,8 +23,8 @@ const Sprite: React.FC<SpriteProps> = ({
   return (
     <>
       <img src={toggleSprite ? regularSrc : shinySrc} width={width} alt={alt} />
-      <Button variant="primary" onClick={handleClick} role="button">
-        {toggleSprite ? "Shiny" : "Normal"}
+      <Button onClick={handleClick} role="button">
+        {toggleSprite ? "Normal" : "Shiny"}
       </Button>
     </>
   );

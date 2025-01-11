@@ -14,7 +14,7 @@ html{
   padding: 1rem;
 }
 
-nav {
+nav, input {
   margin-top: 5px;
   background-color: #fecc02;
   padding: 1rem;
@@ -27,8 +27,13 @@ nav {
   box-shadow: 0 0 5px rgba(0, 0, 0, .6);
 }
 
+.custom-btn{
+  background-color: #fecc02;
+  color: #3063af;
+  border-color: #3063af;
+}
 
-nav a {
+nav a, .custom-btn {
   color: #fff;
   margin-right: 1rem;
   padding: 0.5rem 1rem;
@@ -42,7 +47,7 @@ nav a {
   transition: background-color 0.3s ease;
 }
 
-nav a:hover {
+nav a:hover, .custom-btn:hover {
   background-color: #3063af;
 }
 
