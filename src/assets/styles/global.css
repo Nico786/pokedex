@@ -52,27 +52,31 @@ nav a.active {
   color: #fecc02;
 }
 
-.search-history {
+.pokemon-card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f9f9f9;
+  transition: transform 0.2s;
+  height: 100%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.pokemon-card {
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  width: 180px;
-  text-align: center;
+.pokemon-card:hover {
+  transform: scale(1.05);
 }
 
 .pokemon-card img {
-  margin-bottom: 8px;
+  max-width: 100%;
+  height: auto;
 }
 
 .pokemon-card span {
-  font-size: 16px;
-  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1.2em;
 }
