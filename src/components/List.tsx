@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_POKEMONS } from "@/graphql/queries";
 import Card from "./Card";
 import { Pokemon } from "@/lib/types";
 import { Col, Row } from "react-bootstrap";
+import CardDetails from "./CardDetails";
 
 type ListProps = {
   pokemons: Pokemon[];
@@ -14,9 +15,22 @@ const List: React.FC<ListProps> = () => {
     fetchPolicy: "cache-first",
   });
 
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+
   useEffect(() => {
     refetch();
   }, []);
+
+  const handleCardClick = (pokemon: Pokemon) => {
+    setSelectedPokemon(pokemon);
+    setShowDetails(true);
+  };
+
+  const handleCloseDetails = () => {
+    setShowDetails(false);
+    setSelectedPokemon(null);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -27,12 +41,18 @@ const List: React.FC<ListProps> = () => {
         <Col xs={6} md={4} lg={3} xl={1} key={index}>
           <Card
             key={index}
-            pokedex_id={pokemon.pokedex_id}
-            name={pokemon.name.fr}
-            sprite={pokemon.sprites.regular}
+            pokemon={pokemon}
+            onClick={() => handleCardClick(pokemon)}
           />
         </Col>
       ))}
+      {selectedPokemon && (
+        <CardDetails
+          show={showDetails}
+          onHide={handleCloseDetails}
+          pokemon={selectedPokemon}
+        />
+      )}
     </Row>
   );
 };

@@ -18,6 +18,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="mt-5">
+      <h2 className="text-center">
+        Rechercher par nom ou en cliquant sur une carte !
+      </h2>
       <InputField onSearch={handleSearch} />
       {loading && <p>Loading...</p>}
       {error && <p>Pokemon not found - Error: {error.message}</p>}

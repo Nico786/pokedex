@@ -15,7 +15,7 @@ const InputField: React.FC<{ onSearch: (name: string) => void }> = ({
   };
 
   return (
-    <form onSubmit={onSubmit} className="text-center">
+    <form onSubmit={onSubmit} className="text-center my-4">
       <input
         type="text"
         role="form"

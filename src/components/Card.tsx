@@ -1,20 +1,31 @@
+import { Pokemon } from "@/lib/types";
 import React from "react";
 
 type CardProps = {
-  pokedex_id: number;
-  name: string;
-  sprite: string;
+  pokemon: Pokemon;
+  onClick?: () => void;
 };
 
-const Card: React.FC<CardProps> = ({ pokedex_id, name, sprite }) => {
+const Card: React.FC<CardProps> = ({ pokemon, onClick }) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <div>
-      <div className="pokemon-card">
-        <img src={sprite} alt={name} width={100} className="img-fluid" />
+      <div className="pokemon-card" onClick={handleClick}>
+        <img
+          src={pokemon.sprites.regular}
+          alt={pokemon.name.fr}
+          width={100}
+          className="img-fluid"
+        />
         <p>
-          n°{pokedex_id}
+          n°{pokemon.pokedex_id}
           <br />
-          {name}
+          {pokemon.name.fr}
         </p>
       </div>
     </div>
