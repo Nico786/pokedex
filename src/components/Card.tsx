@@ -1,5 +1,5 @@
 import { Pokemon } from "@/lib/types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import pokeball from "@/assets/images/pokeball.png";
 
 type CardProps = {
@@ -8,7 +8,17 @@ type CardProps = {
 };
 
 const Card: React.FC<CardProps> = ({ pokemon, onClick }) => {
-  const [isRevealed, setIsRevealed] = useState<boolean>(false);
+  const [isRevealed, setIsRevealed] = useState<boolean>(() => {
+    const savedState = localStorage.getItem(`isRevealed-${pokemon.pokedex_id}`);
+    return savedState ? JSON.parse(savedState) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      `isRevealed-${pokemon.pokedex_id}`,
+      JSON.stringify(isRevealed)
+    );
+  }, [isRevealed, pokemon.pokedex_id]);
 
   const handleClick = () => {
     setIsRevealed(true);
