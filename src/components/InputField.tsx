@@ -1,21 +1,23 @@
 import { useState } from "react";
 
-const InputField: React.FC<{ onSearch: (name: string) => void }> = ({
-  onSearch,
-}) => {
+type InputFieldProps = {
+  onSubmit: (name: string) => void;
+};
+
+const InputField: React.FC<InputFieldProps> = ({ onSubmit }) => {
   const [name, setName] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    name && onSearch(name);
+    name && onSubmit(name);
   };
 
   return (
-    <form onSubmit={onSubmit} className="text-center my-4">
+    <form onSubmit={handleSubmit} className="text-center my-4">
       <input
         type="text"
         role="form"

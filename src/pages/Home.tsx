@@ -1,5 +1,5 @@
 import { useLazyQuery } from "@apollo/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GET_POKEMON } from "@/graphql/queries";
 import InputField from "@/components/InputField";
 import CardDetails from "@/components/CardDetails";
@@ -11,17 +11,20 @@ const Home: React.FC = () => {
 
   const handleSearch = (name: string) => {
     getPokemon({ variables: { name } });
+  };
+
+  useEffect(() => {
     if (data && data.pokemon) {
       setModalShow(true);
     }
-  };
+  }, [data]);
 
   return (
     <div className="mt-5">
       <h2 className="text-center">
         Rechercher par nom ou en cliquant sur une carte !
       </h2>
-      <InputField onSearch={handleSearch} />
+      <InputField onSubmit={handleSearch} />
       {loading && <p>Loading...</p>}
       {error && <p>Pokemon not found - Error: {error.message}</p>}
       {data && (

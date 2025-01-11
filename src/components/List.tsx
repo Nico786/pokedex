@@ -11,9 +11,7 @@ type ListProps = {
 };
 
 const List: React.FC<ListProps> = () => {
-  const { data, loading, error, refetch } = useQuery(GET_POKEMONS, {
-    fetchPolicy: "cache-first",
-  });
+  const { data, loading, error, refetch } = useQuery(GET_POKEMONS);
 
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showDetails, setShowDetails] = useState<boolean>(false);
