@@ -2,6 +2,7 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { gql } from 'graphql-tag';
 import { PokedexAPI } from './pokedex-api';
+import { resolvers } from './resolvers';
 
 interface ContextValue {
   dataSources: {
@@ -13,6 +14,11 @@ const typeDefs = gql`
   type Query {
     pokemons: [Pokemon]!
     pokemon(name: String!): Pokemon
+  }
+
+  type Mutation {
+    addPokemon(pokedex_id: Int!): Pokemon
+    createTeam(name: String!): Team
   }
 
   type Pokemon {
@@ -44,21 +50,15 @@ const typeDefs = gql`
     def: Int
     vit: Int
   }
+
+  type Team {
+    id: Int!
+    name: String!
+    pokemons: [Pokemon]
+  }
 `;
 
-const resolvers = {
-  Query: {
-    pokemons: async (_, __, { dataSources }) => {
-      return dataSources.pokedexAPI.getPokemons();
-    },
-    pokemon: async (_, { name }, { dataSources }) => {
-      return dataSources.pokedexAPI.getPokemon(name);
-    }
-  }
-};
-
 const server = new ApolloServer<ContextValue>({ typeDefs, resolvers });
-
 const { url } = await startStandaloneServer(server, {
 
   context: async () => {

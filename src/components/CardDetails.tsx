@@ -5,6 +5,8 @@ import { Row, Col } from "react-bootstrap";
 import Stats from "./Stats";
 import GeneralInfos from "./GeneralInfos";
 import Sprite from "./Sprite";
+import { useMutation } from "@apollo/client";
+import { CATCH_POKEMON } from "@/graphql/mutations";
 
 interface CardDetailsProps {
   show: boolean;
@@ -13,6 +15,17 @@ interface CardDetailsProps {
 }
 
 const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
+  const [catchPokemon] = useMutation(CATCH_POKEMON);
+
+  const handleCatchPokemon = async () => {
+    try {
+      await catchPokemon({ variables: { pokedex_id: pokemon.pokedex_id } });
+      console.log("Pokemon added to team!");
+    } catch (error) {
+      console.error("Error adding Pokemon to team:", error);
+    }
+  };
+
   return (
     <Modal
       size="lg"
@@ -38,6 +51,7 @@ const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
               width={300}
             />
           </Col>
+          <button onClick={handleCatchPokemon}>Add to Team</button>
           <Col className="infos">
             <GeneralInfos
               height={pokemon.height}

@@ -5,7 +5,7 @@ import InputField from "@/components/InputField";
 import CardDetails from "@/components/CardDetails";
 import List from "@/components/List";
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
   const [getPokemon, { data, loading, error }] = useLazyQuery(GET_POKEMON);
   const [modalShow, setModalShow] = useState<boolean>(false);
 
@@ -41,4 +41,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomePage;

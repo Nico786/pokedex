@@ -4,19 +4,19 @@ const Navbar = () => {
   return (
     <nav>
       <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
-        Recherche
-      </NavLink>
-      <NavLink
-        to="/pokedex"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
         Pokedex
       </NavLink>
       <NavLink
-        to="/about"
+        to="/team"
         className={({ isActive }) => (isActive ? "active" : "")}
       >
         Team
+      </NavLink>
+      <NavLink
+        to="/fight"
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        Fight
       </NavLink>
     </nav>
   );

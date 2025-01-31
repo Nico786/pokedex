@@ -23,6 +23,7 @@ const Sprite: React.FC<SpriteProps> = ({
   return (
     <>
       <img src={toggleSprite ? regularSrc : shinySrc} width={width} alt={alt} />
+      <br />
       <Button onClick={handleClick} role="button">
         {toggleSprite ? "Normal" : "Shiny"}
       </Button>

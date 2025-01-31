@@ -7,50 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//TODO: remove array for sprites and stats
-
 model Pokemon {
-  pokemonId Int      @id @default(autoincrement())
-  pokedexId Int
-  name      String
-  level     Int
-  height    String
-  weight    String
-  sprites   Sprite[]
-  types     Type[]
-  stats     Stat[]
-  isShiny   Boolean
-  isCaught  Boolean
-  isUnknown Boolean
-  isTeam    Boolean
-  teamId    Int?
-  team      Team?    @relation(fields: [teamId], references: [teamId])
-}
-
-model Sprite {
-  spriteId  Int     @id @default(autoincrement())
-  url       String
-  pokemonId Int
-  pokemon   Pokemon @relation(fields: [pokemonId], references: [pokemonId])
-}
-
-model Type {
-  typeId    Int     @id @default(autoincrement())
-  name      String
-  pokemonId Int
-  pokemon   Pokemon @relation(fields: [pokemonId], references: [pokemonId])
-}
-
-model Stat {
-  statId    Int     @id @default(autoincrement())
-  atk       Int
-  def       Int
-  vit       Int
-  pokemonId Int
-  pokemon   Pokemon @relation(fields: [pokemonId], references: [pokemonId])
+  id          Int           @id @default(autoincrement())
+  name        String
+  sprite      String
+  TeamPokemon TeamPokemon[]
 }
 
 model Team {
-  teamId   Int       @id @default(autoincrement())
-  pokemons Pokemon[]
+  id       Int           @id @default(autoincrement())
+  name     String
+  pokemons TeamPokemon[]
+}
+
+// Junction table (Many to Many relationship)
+model TeamPokemon {
+  teamId    Int
+  team      Team    @relation(fields: [teamId], references: [id])
+  pokemonId Int
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+
+  @@id([teamId, pokemonId])
 }
