@@ -14,6 +14,7 @@ const typeDefs = gql`
   type Query {
     pokemons: [Pokemon]!
     pokemon(name: String!): Pokemon
+    teams: [Team]!
   }
 
   type Mutation {

@@ -51,3 +51,21 @@ export const GET_POKEMON = gql`
     }
   }
 `;
+
+export const GET_TEAMS = gql`
+  query GetTeams {
+    teams {
+      id
+      name
+      pokemons {
+        pokedex_id
+        name{
+          fr
+        }
+        sprites{
+          regular
+        }
+      }
+    }
+  }
+`;

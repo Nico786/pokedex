@@ -9,7 +9,14 @@ export const resolvers = {
     },
     pokemon: async (_, { name }, { dataSources }) => {
       return dataSources.pokedexAPI.getPokemon(name);
-    }
+    },
+    teams: async () => {
+      return await prisma.team.findMany({
+        include: {
+          pokemons: true,
+        },
+      });
+    },
   },
   Mutation: {
     // addPokemon: async (_, { pokedex_id }) => {
