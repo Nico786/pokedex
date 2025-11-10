@@ -41,5 +41,14 @@ export const resolvers = {
         throw new Error("Failed to create team");
       }
     },
+    deleteTeam: async (_, { id }) => {
+      try {
+        const deleted = await prisma.team.delete({ where: { id } });
+        return deleted;
+      } catch (error) {
+        console.error("Error deleting team:", error);
+        throw new Error("Failed to delete team");
+      }
+    },
   },
 };

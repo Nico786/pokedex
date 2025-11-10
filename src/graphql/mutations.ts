@@ -17,3 +17,11 @@ export const CREATE_TEAM = gql`
     }
   }
 `;
+
+export const DELETE_TEAM = gql`
+  mutation deleteTeam($id: Int!) {
+    deleteTeam(id: $id) {
+      id
+    }
+  }
+`;

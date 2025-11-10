@@ -1,27 +1,57 @@
 import React, { useState } from "react";
 import { Row, Col, Button, Form, Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_TEAM } from "@/graphql/mutations";
+import { CREATE_TEAM, DELETE_TEAM } from "@/graphql/mutations";
 import { GET_TEAMS } from "@/graphql/queries";
 import Team from "@/components/Team";
 
 const TeamPage: React.FC = () => {
   const [teamName, setTeamName] = useState("");
-  const [createTeam] = useMutation(CREATE_TEAM);
+  const [createTeam] = useMutation(CREATE_TEAM, {
+    update(cache, { data }) {
+      if (!data?.createTeam) return;
+      const existing = cache.readQuery<{ teams: any[] }>({ query: GET_TEAMS });
+      if (!existing) return;
+      cache.writeQuery({
+        query: GET_TEAMS,
+        data: { teams: [...existing.teams, data.createTeam] },
+      });
+    },
+  });
+  const [deleteTeam] = useMutation(DELETE_TEAM, {
+    update(cache, { data }) {
+      const deletedId = data?.deleteTeam?.id;
+      if (!deletedId) return;
+      const existing = cache.readQuery<{ teams: any[] }>({ query: GET_TEAMS });
+      if (!existing) return;
+      cache.writeQuery({
+        query: GET_TEAMS,
+        data: { teams: existing.teams.filter((t) => t.id !== deletedId) },
+      });
+    },
+  });
   const [showWarning, setShowWarning] = useState(false);
   const { loading, error, data } = useQuery(GET_TEAMS);
 
   const handleCreateTeam = async () => {
-    if (teamName === "") {
+    if (teamName.trim() === "") {
       setShowWarning(true);
       return;
     }
-
     try {
-      const { data } = await createTeam({ variables: { name: teamName } });
-      console.log("Team created:", data.createTeam);
+      await createTeam({ variables: { name: teamName.trim() } });
+      setTeamName("");
+      setShowWarning(false);
     } catch (error) {
       console.error("Error creating team:", error);
+    }
+  };
+
+  const handleDeleteTeam = async (id: number) => {
+    try {
+      await deleteTeam({ variables: { id } });
+    } catch (error) {
+      console.error("Error deleting team:", error);
     }
   };
 
@@ -48,8 +78,8 @@ const TeamPage: React.FC = () => {
             +
           </Button>
         </Form.Group>
-        {data.teams.map((team: any) => (
-          <Team key={team.id} team={team} />
+        {data?.teams?.map((team: any) => (
+          <Team key={team.id} team={team} onDelete={handleDeleteTeam} />
         ))}
       </Col>
     </Row>
