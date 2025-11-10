@@ -10,7 +10,7 @@ const Navbar = () => {
         to="/team"
         className={({ isActive }) => (isActive ? "active" : "")}
       >
-        Team
+        Teams
       </NavLink>
       <NavLink
         to="/fight"

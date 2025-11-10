@@ -25,3 +25,17 @@ export const DELETE_TEAM = gql`
     }
   }
 `;
+
+export const ADD_POKEMON_TO_TEAM = gql`
+  mutation addPokemonToTeam($teamId: Int!, $pokemonId: Int!, $name: String!, $sprite: String!) {
+    addPokemonToTeam(teamId: $teamId, pokemonId: $pokemonId, name: $name, sprite: $sprite) {
+      id
+      name
+      pokemons {
+        id
+        name
+        sprite
+      }
+    }
+  }
+`;

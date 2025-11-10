@@ -21,6 +21,7 @@ const typeDefs = gql`
     addPokemon(pokedex_id: Int!): Pokemon
     createTeam(name: String!): Team
     deleteTeam(id: Int!): Team
+    addPokemonToTeam(teamId: Int!, pokemonId: Int!, name: String!, sprite: String!): Team
   }
 
   type Pokemon {
@@ -53,10 +54,16 @@ const typeDefs = gql`
     vit: Int
   }
 
+  type TeamMember {
+    id: Int!
+    name: String!
+    sprite: String!
+  }
+
   type Team {
     id: Int!
     name: String!
-    pokemons: [Pokemon]
+    pokemons: [TeamMember]!
   }
 `;
 

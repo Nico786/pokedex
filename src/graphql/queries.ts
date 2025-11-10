@@ -58,13 +58,9 @@ export const GET_TEAMS = gql`
       id
       name
       pokemons {
-        pokedex_id
-        name{
-          fr
-        }
-        sprites{
-          regular
-        }
+        id
+        name
+        sprite
       }
     }
   }
