@@ -8,9 +8,10 @@ import CardDetails from "./CardDetails";
 
 type ListProps = {
   pokemons: Pokemon[];
+  revealedPokemonId?: number | null;
 };
 
-const List: React.FC<ListProps> = () => {
+const List: React.FC<ListProps> = ({ revealedPokemonId }) => {
   const { data, loading, error, refetch } = useQuery(GET_POKEMONS);
 
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
@@ -41,6 +42,7 @@ const List: React.FC<ListProps> = () => {
             key={index}
             pokemon={pokemon}
             onClick={() => handleCardClick(pokemon)}
+            forceReveal={revealedPokemonId === pokemon.pokedex_id}
           />
         </Col>
       ))}

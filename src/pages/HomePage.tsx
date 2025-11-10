@@ -8,6 +8,9 @@ import List from "@/components/List";
 const HomePage: React.FC = () => {
   const [getPokemon, { data, loading, error }] = useLazyQuery(GET_POKEMON);
   const [modalShow, setModalShow] = useState<boolean>(false);
+  const [revealedPokemonId, setRevealedPokemonId] = useState<number | null>(
+    null
+  );
 
   const handleSearch = (name: string) => {
     getPokemon({ variables: { name } });
@@ -15,6 +18,11 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     if (data && data.pokemon) {
+      localStorage.setItem(
+        `isRevealed-${data.pokemon.pokedex_id}`,
+        JSON.stringify(true)
+      );
+      setRevealedPokemonId(data.pokemon.pokedex_id);
       setModalShow(true);
     }
   }, [data]);
@@ -36,7 +44,7 @@ const HomePage: React.FC = () => {
           />
         </div>
       )}
-      <List pokemons={[]} />
+      <List pokemons={[]} revealedPokemonId={revealedPokemonId} />
     </div>
   );
 };
