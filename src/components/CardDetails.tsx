@@ -1,7 +1,7 @@
 import { Pokemon } from "@/lib/types";
 import React, { useMemo, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import Stats from "./Stats";
 import GeneralInfos from "./GeneralInfos";
 import Sprite from "./Sprite";
@@ -15,6 +15,7 @@ interface CardDetailsProps {
 
 const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
   const [showTeamPicker, setShowTeamPicker] = useState(false);
+  const [isShiny, setIsShiny] = useState(false);
 
   const newTeamPokemon = useMemo(
     () => ({
@@ -27,6 +28,7 @@ const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
 
   const openTeamPicker = () => setShowTeamPicker(true);
   const closeTeamPicker = () => setShowTeamPicker(false);
+  const toggleShiny = () => setIsShiny(!isShiny);
 
   return (
     <>
@@ -40,18 +42,27 @@ const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
         backdrop={showTeamPicker ? false : true}
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            <span>
-              N°{pokemon.pokedex_id}: {pokemon.name.fr}
-            </span>
-          </Modal.Title>
+          <div className="d-flex align-items-center w-100">
+            <Modal.Title id="contained-modal-title-vcenter">
+              <span>
+                N°{pokemon.pokedex_id}: {pokemon.name.fr}
+              </span>
+            </Modal.Title>
+            <Button
+              variant="outline-secondary"
+              size="sm"
+              onClick={toggleShiny}
+              className="sprite-toggle-btn"
+            >
+              {isShiny ? "✨ Shiny" : "Normal"}
+            </Button>
+          </div>
         </Modal.Header>
         <Modal.Body>
           <Row className="modal-content">
             <Col className="sprite text-center">
               <Sprite
-                regularSrc={pokemon.sprites.regular}
-                shinySrc={pokemon.sprites.shiny}
+                src={isShiny ? pokemon.sprites.shiny : pokemon.sprites.regular}
                 alt={pokemon.name.fr}
                 width={300}
               />

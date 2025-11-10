@@ -17,14 +17,21 @@ const InputField: React.FC<InputFieldProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="text-center my-4">
-      <input
-        type="text"
-        role="form"
-        placeholder="Entrez le nom du Pokemon"
-        value={name}
-        onChange={handleInputChange}
-      />
+    <form onSubmit={handleSubmit} className="search-form">
+      <div className="search-container">
+        <div className="search-icon">🔍</div>
+        <input
+          type="text"
+          role="form"
+          placeholder="Rechercher un Pokémon..."
+          value={name}
+          onChange={handleInputChange}
+          className="pokedex-search"
+        />
+        <button type="submit" className="search-btn">
+          <span>GO</span>
+        </button>
+      </div>
     </form>
   );
 };

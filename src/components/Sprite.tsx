@@ -1,34 +1,13 @@
-import React, { useState } from "react";
-import Button from "./Button";
+import React from "react";
 
 interface SpriteProps {
-  regularSrc: string;
-  shinySrc: string;
+  src: string;
   alt: string;
   width: number;
 }
 
-const Sprite: React.FC<SpriteProps> = ({
-  regularSrc,
-  shinySrc,
-  alt,
-  width,
-}) => {
-  const [toggleSprite, setToggleSprite] = useState(true);
-
-  const handleClick = () => {
-    setToggleSprite(!toggleSprite);
-  };
-
-  return (
-    <>
-      <img src={toggleSprite ? regularSrc : shinySrc} width={width} alt={alt} />
-      <br />
-      <Button onClick={handleClick} role="button">
-        {toggleSprite ? "Normal" : "Shiny"}
-      </Button>
-    </>
-  );
+const Sprite: React.FC<SpriteProps> = ({ src, alt, width }) => {
+  return <img src={src} width={width} alt={alt} />;
 };
 
 export default Sprite;
