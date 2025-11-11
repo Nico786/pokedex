@@ -61,23 +61,28 @@ const TeamPage: React.FC = () => {
   return (
     <Row className="text-center justify-content-center">
       <Col>
-        <h1 className="mt-3">Equipes</h1>
+        <h1 className="team-page-title">Equipes</h1>
         {showWarning && (
-          <Alert variant="warning">Veuillez choisir un nom d'équipe.</Alert>
+          <Alert variant="warning" className="team-warning-alert">
+            Veuillez choisir un nom d'équipe.
+          </Alert>
         )}
-        <Form.Group className="d-flex mx-auto justify-content-center">
-          <Form.Control
-            type="text"
-            placeholder="Entrer un nom d'équipe"
-            value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
-            required
-            style={{ width: "20%" }}
-          />
-          <Button onClick={handleCreateTeam} className="mx-2">
-            +
-          </Button>
-        </Form.Group>
+        <div className="team-create-form">
+          <div className="team-input-container">
+            <span className="team-input-icon">✏️</span>
+            <input
+              type="text"
+              placeholder="Entrer un nom d'équipe"
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value)}
+              className="team-input"
+              onKeyDown={(e) => e.key === "Enter" && handleCreateTeam()}
+            />
+            <button onClick={handleCreateTeam} className="team-create-btn">
+              + Créer
+            </button>
+          </div>
+        </div>
         {data?.teams?.map((team: any) => (
           <Team key={team.id} team={team} onDelete={handleDeleteTeam} />
         ))}
