@@ -60,20 +60,18 @@ const TeamPage: React.FC = () => {
   return (
     <Row className="text-center justify-content-center">
       <Col>
-        <h1 className="team-page-title">Equipes</h1>
+        <h1>Equipes</h1>
         {showWarning && (
           <Alert variant="warning" className="team-warning-alert">
             Veuillez choisir un nom d'équipe.
           </Alert>
         )}
-        <div className="team-create-form">
+        <div className="page-input-form">
           <PokedexInput
             onSubmit={handleCreateTeam}
             placeholder="Entrer un nom d'équipe"
             icon="✏️"
             buttonText="+ Créer"
-            buttonClassName="team-create-btn"
-            containerClassName="team-input-container"
           />
         </div>
         {data?.teams?.map((team: any) => (

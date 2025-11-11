@@ -1,5 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { Row, Col } from "react-bootstrap";
 import { GET_POKEMON } from "@/graphql/queries";
 import PokedexInput from "@/components/PokedexInput";
 import CardDetails from "@/components/CardDetails";
@@ -28,31 +29,31 @@ const HomePage: React.FC = () => {
   }, [data]);
 
   return (
-    <div className="mt-5">
-      <h2 className="text-center">
-        Rechercher par nom ou en cliquant sur une carte !
-      </h2>
-      <PokedexInput
-        onSubmit={handleSearch}
-        placeholder="Rechercher un Pokémon..."
-        icon="🔍"
-        buttonText="GO"
-        buttonClassName="search-btn"
-        containerClassName="search-container"
-      />
-      {loading && <p>Loading...</p>}
-      {error && <p>Pokemon not found - Error: {error.message}</p>}
-      {data && (
-        <div>
-          <CardDetails
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            pokemon={data.pokemon}
+    <Row className="text-center justify-content-center">
+      <Col>
+        <h1>Rechercher par nom ou en cliquant sur une carte !</h1>
+        <div className="page-input-form">
+          <PokedexInput
+            onSubmit={handleSearch}
+            placeholder="Rechercher un Pokémon..."
+            icon="🔍"
+            buttonText="GO"
           />
         </div>
-      )}
-      <List pokemons={[]} revealedPokemonId={revealedPokemonId} />
-    </div>
+        {loading && <p>Loading...</p>}
+        {error && <p>Pokemon not found - Error: {error.message}</p>}
+        {data && (
+          <div>
+            <CardDetails
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              pokemon={data.pokemon}
+            />
+          </div>
+        )}
+        <List pokemons={[]} revealedPokemonId={revealedPokemonId} />
+      </Col>
+    </Row>
   );
 };
 

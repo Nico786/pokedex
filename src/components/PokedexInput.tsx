@@ -5,8 +5,6 @@ interface PokedexInputProps {
   placeholder: string;
   icon?: string;
   buttonText: string;
-  buttonClassName?: string;
-  containerClassName?: string;
 }
 
 const PokedexInput: React.FC<PokedexInputProps> = ({
@@ -14,10 +12,12 @@ const PokedexInput: React.FC<PokedexInputProps> = ({
   placeholder,
   icon = "🔍",
   buttonText,
-  buttonClassName = "search-btn",
-  containerClassName = "search-container",
 }) => {
   const [value, setValue] = useState("");
+
+  // Determine button style based on button text
+  const isCreateButton = buttonText.toLowerCase().includes("créer");
+  const buttonClass = isCreateButton ? "pokedex-btn-green" : "pokedex-btn-red";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -40,18 +40,18 @@ const PokedexInput: React.FC<PokedexInputProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-form">
-      <div className={containerClassName}>
-        <div className="search-icon">{icon}</div>
+    <form onSubmit={handleSubmit} className="pokedex-input-form">
+      <div className="pokedex-input-container">
+        <div className="pokedex-input-icon">{icon}</div>
         <input
           type="text"
           placeholder={placeholder}
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          className="pokedex-search"
+          className="pokedex-input"
         />
-        <button type="submit" className={buttonClassName}>
+        <button type="submit" className={buttonClass}>
           <span>{buttonText}</span>
         </button>
       </div>
