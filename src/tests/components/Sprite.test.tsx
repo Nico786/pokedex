@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Sprite from "@/components/Sprite";
 
@@ -10,6 +10,7 @@ describe("Sprite", () => {
         shinySrc="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png"
         alt="Bulbasaur"
         width={100}
+        showToggle={true}
       />
     );
     const img = screen.getByAltText("Bulbasaur");
