@@ -308,6 +308,14 @@ html{
 }
 
 /* ========== MODAL STYLES ========== */
+.modal-dialog {
+  max-height: 90vh;
+  height: 90vh;
+  margin: 5vh auto;
+  display: flex;
+  align-items: center;
+}
+
 .modal-content {
   border: 4px solid #212121 !important;
   border-radius: 24px !important;
@@ -315,6 +323,9 @@ html{
   box-shadow: 
     0 12px 32px rgba(0, 0, 0, 0.4),
     inset 0 2px 6px rgba(255, 255, 255, 0.6) !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-header {
@@ -323,6 +334,7 @@ html{
   border-radius: 20px 20px 0 0 !important;
   padding: 1.25rem 1.5rem;
   position: relative;
+  flex-shrink: 0;
 }
 
 .modal-title {
@@ -342,17 +354,15 @@ html{
   background: linear-gradient(135deg, #fafafa 0%, #eeeeee 100%);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  flex: 1;
+  overflow-y: auto;
 }
 
-.modal-body .row {
+.modal-body-content {
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
 }
 
 .modal-body .col {
@@ -364,6 +374,7 @@ html{
   border-top: 3px solid #212121 !important;
   background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
   border-radius: 0 0 20px 20px !important;
+  flex-shrink: 0;
 }
 
 /* ========== CUSTOM BUTTONS ========== */
@@ -514,6 +525,18 @@ html{
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
+.no-pokemon-message {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #424242;
+  font-style: italic;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
 .team-picker-modal .modal-dialog {
   position: fixed;
   left: 50%;
@@ -542,6 +565,9 @@ html{
   background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
   padding: 1.25rem;
   border-radius: 0 0 20px 20px;
+  display: block !important;
+  align-items: initial !important;
+  justify-content: initial !important;
 }
 
 .team-picker-backdrop {
@@ -668,21 +694,23 @@ html{
 .team-tile-sprites { 
   display: flex; 
   flex-wrap: wrap; 
-  gap: 8px; 
-  min-height: 52px;
+  gap: 4px; 
+  min-height: 48px;
   background: rgba(255, 255, 255, 0.5);
-  padding: 8px;
+  padding: 6px;
   border-radius: 12px;
   border: 2px solid #212121;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  justify-content: flex-start;
 }
 
 .team-sprite { 
-  width: 46px; 
-  height: 46px; 
+  width: 32px; 
+  height: 32px; 
   object-fit: contain; 
   filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); 
-  transition: transform .15s ease; 
+  transition: transform .15s ease;
+  flex-shrink: 0;
 }
 
 .team-sprite:hover { 
@@ -706,127 +734,6 @@ html{
   font-size: 1.1rem;
 }
 
-.team-picker-modal .modal-dialog {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) !important;
-  margin: 0;
-  width: 90%;
-}
-
-.team-picker-modal .modal-content {
-  background: #f9fbfe;
-  border: 2px solid #3063af44;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.15);
-}
-
-.team-picker-backdrop {
-  backdrop-filter: blur(8px);
-  background-color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.team-picker-list { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 14px; 
-  max-height: 65vh;
-  overflow-y: auto;
-  padding-right: 8px;
-  width: 100%;
-}
-
-.team-tile {
-  background: #ffffff;
-  border: 2px solid #d9e2ec;
-  border-radius: 14px;
-  padding: 12px 14px 10px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  transition: box-shadow .15s ease, transform .15s ease, border-color .15s;
-}
-.team-tile:hover:not(.disabled) { 
-  box-shadow: 0 6px 20px rgba(0,0,0,.10); 
-  transform: translateY(-2px); 
-  border-color: #3063af88; 
-}
-.team-tile:active:not(.disabled) { transform: translateY(0); }
-.team-tile:focus:not(.disabled) { outline: 3px solid #3063af44; }
-.team-tile.disabled { 
-  opacity: 0.6; 
-  cursor: not-allowed;
-  background: #f5f7fa;
-}
-
-.team-tile-header { 
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  margin-bottom: 6px; 
-}
-.team-tile-name { 
-  font-weight: 700; 
-  font-size: .95rem; 
-  color: #1a2f55; 
-}
-.team-tile-action { 
-  font-size: .75rem; 
-  font-weight: 600; 
-  background: #3063af; 
-  color: #fff; 
-  padding: 4px 10px; 
-  border-radius: 10px; 
-}
-.team-tile-status { 
-  font-size: .7rem; 
-  font-weight: 600; 
-  padding: 4px 8px; 
-  border-radius: 10px; 
-}
-.team-tile-status.full {
-  background: #ef4444;
-  color: #fff;
-}
-.team-tile-status.has {
-  background: #f59e0b;
-  color: #fff;
-}
-
-.team-tile-count {
-  font-size: .75rem;
-  color: #64748b;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.team-tile-sprites { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: 6px; 
-  min-height: 48px; 
-}
-.team-sprite { 
-  width: 42px; 
-  height: 42px; 
-  object-fit: contain; 
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.25)); 
-  transition: transform .15s ease; 
-}
-.team-sprite:hover { transform: scale(1.08); }
-.team-empty { 
-  font-size: .75rem; 
-  color: #64748b; 
-  font-style: italic; 
-}
-
-.no-teams {
-  text-align: center;
-  color: #64748b;
-  padding: 20px;
-  font-style: italic;
-}
-
 .blurred-modal .modal-content {
   filter: blur(4px);
   pointer-events: none;
@@ -840,15 +747,33 @@ html{
   margin-left: auto;
   margin-right: 8px;
   font-size: 0.85rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 20px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 16px;
+  border: 3px solid #212121 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%) !important;
+  color: #212121 !important;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
   transition: all 0.2s ease;
   white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
 .sprite-toggle-btn:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px) scale(1.05) !important;
+  background: linear-gradient(135deg, #fecc02 0%, #f59f00 100%) !important;
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+}
+
+.sprite-toggle-btn:active {
+  transform: translateY(0) scale(1) !important;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* ========== ADD TO TEAM BUTTON ========== */

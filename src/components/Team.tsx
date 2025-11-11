@@ -37,12 +37,18 @@ const Team: React.FC<TeamProps> = ({ team, onDelete }) => {
       </button>
       <h2 className="team-title">{team.name}</h2>
       <div className="pokemons">
-        {team.pokemons.map((pokemon) => (
-          <div key={pokemon.id} className="pokemon">
-            <img src={pokemon.sprite} alt={pokemon.name} />
-            <p>{pokemon.name}</p>
-          </div>
-        ))}
+        {team.pokemons.length > 0 ? (
+          team.pokemons.map((pokemon) => (
+            <div key={pokemon.id} className="pokemon">
+              <img src={pokemon.sprite} alt={pokemon.name} />
+              <p>{pokemon.name}</p>
+            </div>
+          ))
+        ) : (
+          <p className="no-pokemon-message">
+            Ajoutez des pokémon depuis le pokédex !
+          </p>
+        )}
       </div>
     </div>
   );

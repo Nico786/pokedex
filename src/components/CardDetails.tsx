@@ -59,28 +59,30 @@ const CardDetails: React.FC<CardDetailsProps> = ({ show, onHide, pokemon }) => {
           </div>
         </Modal.Header>
         <Modal.Body>
-          <Row className="modal-content">
-            <Col className="sprite text-center">
+          <Row className="modal-body-content">
+            <Col xs={12} className="sprite text-center">
               <Sprite
                 src={isShiny ? pokemon.sprites.shiny : pokemon.sprites.regular}
                 alt={pokemon.name.fr}
                 width={300}
               />
             </Col>
-            <button
-              className="custom-btn add-to-team-btn"
-              onClick={openTeamPicker}
-            >
-              Ajouter à une équipe
-            </button>
-            <Col className="infos">
+            <Col xs={12} className="text-center">
+              <button
+                className="custom-btn add-to-team-btn"
+                onClick={openTeamPicker}
+              >
+                Ajouter à une équipe
+              </button>
+            </Col>
+            <Col xs={12} md={6} className="infos">
               <GeneralInfos
                 height={pokemon.height}
                 weight={pokemon.weight}
                 types={pokemon.types}
               />
             </Col>
-            <Col className="stats">
+            <Col xs={12} md={6} className="stats">
               <Stats stats={pokemon.stats} />
             </Col>
           </Row>
