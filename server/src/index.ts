@@ -18,7 +18,6 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addPokemon(pokedex_id: Int!): Pokemon
     createTeam(name: String!): Team
     deleteTeam(id: Int!): Team
     addPokemonToTeam(teamId: Int!, pokemonId: Int!, name: String!, sprite: String!): Team

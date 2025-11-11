@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { GET_POKEMON } from "@/graphql/queries";
-import InputField from "@/components/InputField";
+import PokedexInput from "@/components/PokedexInput";
 import CardDetails from "@/components/CardDetails";
 import List from "@/components/List";
 
@@ -32,7 +32,14 @@ const HomePage: React.FC = () => {
       <h2 className="text-center">
         Rechercher par nom ou en cliquant sur une carte !
       </h2>
-      <InputField onSubmit={handleSearch} />
+      <PokedexInput
+        onSubmit={handleSearch}
+        placeholder="Rechercher un Pokémon..."
+        icon="🔍"
+        buttonText="GO"
+        buttonClassName="search-btn"
+        containerClassName="search-container"
+      />
       {loading && <p>Loading...</p>}
       {error && <p>Pokemon not found - Error: {error.message}</p>}
       {data && (

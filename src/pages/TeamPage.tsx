@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Form, Alert } from "react-bootstrap";
+import { Row, Col, Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_TEAM, DELETE_TEAM } from "@/graphql/mutations";
 import { GET_TEAMS } from "@/graphql/queries";
 import Team from "@/components/Team";
+import PokedexInput from "@/components/PokedexInput";
 
 const TeamPage: React.FC = () => {
-  const [teamName, setTeamName] = useState("");
+  const [showWarning, setShowWarning] = useState(false);
   const [createTeam] = useMutation(CREATE_TEAM, {
     update(cache, { data }) {
       if (!data?.createTeam) return;
@@ -30,17 +31,15 @@ const TeamPage: React.FC = () => {
       });
     },
   });
-  const [showWarning, setShowWarning] = useState(false);
   const { loading, error, data } = useQuery(GET_TEAMS);
 
-  const handleCreateTeam = async () => {
-    if (teamName.trim() === "") {
+  const handleCreateTeam = async (teamName: string) => {
+    if (!teamName.trim()) {
       setShowWarning(true);
       return;
     }
     try {
       await createTeam({ variables: { name: teamName.trim() } });
-      setTeamName("");
       setShowWarning(false);
     } catch (error) {
       console.error("Error creating team:", error);
@@ -68,20 +67,14 @@ const TeamPage: React.FC = () => {
           </Alert>
         )}
         <div className="team-create-form">
-          <div className="team-input-container">
-            <span className="team-input-icon">✏️</span>
-            <input
-              type="text"
-              placeholder="Entrer un nom d'équipe"
-              value={teamName}
-              onChange={(e) => setTeamName(e.target.value)}
-              className="team-input"
-              onKeyDown={(e) => e.key === "Enter" && handleCreateTeam()}
-            />
-            <button onClick={handleCreateTeam} className="team-create-btn">
-              + Créer
-            </button>
-          </div>
+          <PokedexInput
+            onSubmit={handleCreateTeam}
+            placeholder="Entrer un nom d'équipe"
+            icon="✏️"
+            buttonText="+ Créer"
+            buttonClassName="team-create-btn"
+            containerClassName="team-input-container"
+          />
         </div>
         {data?.teams?.map((team: any) => (
           <Team key={team.id} team={team} onDelete={handleDeleteTeam} />
