@@ -5,8 +5,9 @@ interface SpriteProps {
   shinySrc?: string;
   src?: string;
   alt: string;
-  width: number;
+  width?: number;
   showToggle?: boolean;
+  className?: string;
 }
 
 const Sprite: React.FC<SpriteProps> = ({
@@ -16,6 +17,7 @@ const Sprite: React.FC<SpriteProps> = ({
   alt,
   width,
   showToggle = false,
+  className = "",
 }) => {
   const [isShiny, setIsShiny] = useState(false);
 
@@ -27,7 +29,12 @@ const Sprite: React.FC<SpriteProps> = ({
   if (showToggle && regularSrc && shinySrc) {
     return (
       <div className="sprite-container">
-        <img src={isShiny ? shinySrc : regularSrc} width={width} alt={alt} />
+        <img
+          src={isShiny ? shinySrc : regularSrc}
+          width={width}
+          alt={alt}
+          className={className}
+        />
         <button
           className="sprite-toggle-btn"
           onClick={toggleShiny}
@@ -41,7 +48,14 @@ const Sprite: React.FC<SpriteProps> = ({
   }
 
   // Otherwise, just display the provided src
-  return <img src={src || regularSrc} width={width} alt={alt} />;
+  const imgProps = {
+    src: src || regularSrc,
+    alt,
+    className,
+    ...(width && { width }),
+  };
+
+  return <img {...imgProps} />;
 };
 
 export default Sprite;

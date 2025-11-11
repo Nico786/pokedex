@@ -1,4 +1,5 @@
 import React from "react";
+import Sprite from "./Sprite";
 
 export interface TeamProps {
   team: {
@@ -40,7 +41,7 @@ const Team: React.FC<TeamProps> = ({ team, onDelete }) => {
         {team.pokemons.length > 0 ? (
           team.pokemons.map((pokemon) => (
             <div key={pokemon.id} className="pokemon">
-              <img src={pokemon.sprite} alt={pokemon.name} />
+              <Sprite src={pokemon.sprite} alt={pokemon.name} />
               <p>{pokemon.name}</p>
             </div>
           ))

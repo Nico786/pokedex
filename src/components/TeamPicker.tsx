@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { Alert, Row } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_TEAMS } from "@/graphql/queries";
 import { ADD_POKEMON_TO_TEAM } from "@/graphql/mutations";
+import Sprite from "./Sprite";
 
 interface TeamPickerProps {
   show: boolean;
@@ -75,30 +76,28 @@ const TeamPicker: React.FC<TeamPickerProps> = ({ show, onHide, pokemon }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Row>
-          {(error || success) && (
-            <div className="mb-3">
-              {error && (
-                <Alert
-                  variant="danger"
-                  onClose={() => setError(null)}
-                  dismissible
-                >
-                  {error}
-                </Alert>
-              )}
-              {success && (
-                <Alert
-                  variant="success"
-                  onClose={() => setSuccess(null)}
-                  dismissible
-                >
-                  {success}
-                </Alert>
-              )}
-            </div>
-          )}
-        </Row>
+        {(error || success) && (
+          <div className="mb-3">
+            {error && (
+              <Alert
+                variant="danger"
+                onClose={() => setError(null)}
+                dismissible
+              >
+                {error}
+              </Alert>
+            )}
+            {success && (
+              <Alert
+                variant="success"
+                onClose={() => setSuccess(null)}
+                dismissible
+              >
+                {success}
+              </Alert>
+            )}
+          </div>
+        )}
         {data?.teams?.length ? (
           <div className="team-picker-list">
             {data.teams.map((team: any) => {
@@ -142,7 +141,7 @@ const TeamPicker: React.FC<TeamPickerProps> = ({ show, onHide, pokemon }) => {
                         const src = p.sprite ?? p?.sprites?.regular;
                         const alt = p.name?.fr ?? p.name ?? `pokemon-${idx}`;
                         return (
-                          <img
+                          <Sprite
                             key={(p.id ?? p.pokedex_id ?? idx) + "-sprite"}
                             src={src}
                             alt={alt}
