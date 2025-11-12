@@ -24,13 +24,6 @@ const Navbar = () => {
           <span className="nav-icon">👥</span>
           Équipes
         </NavLink>
-        <NavLink
-          to="/fight"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <span className="nav-icon">⚔️</span>
-          Combat
-        </NavLink>
       </div>
     </nav>
   );

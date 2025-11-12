@@ -42,15 +42,6 @@ const HomePage: React.FC = () => {
         </div>
         {loading && <p>Loading...</p>}
         {error && <p>Pokemon not found - Error: {error.message}</p>}
-        {data && (
-          <div>
-            <CardDetails
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              pokemon={data.pokemon}
-            />
-          </div>
-        )}
         <List pokemons={[]} revealedPokemonId={revealedPokemonId} />
       </Col>
     </Row>

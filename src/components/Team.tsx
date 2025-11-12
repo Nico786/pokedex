@@ -12,9 +12,10 @@ export interface TeamProps {
     }[];
   };
   onDelete?: (id: number) => void;
+  onDeletePokemon?: (teamId: number, pokemonId: number) => void;
 }
 
-const Team: React.FC<TeamProps> = ({ team, onDelete }) => {
+const Team: React.FC<TeamProps> = ({ team, onDelete, onDeletePokemon }) => {
   const handleDelete = () => {
     if (
       window.confirm(
@@ -25,11 +26,21 @@ const Team: React.FC<TeamProps> = ({ team, onDelete }) => {
     }
   };
 
+  const handleDeletePokemon = (pokemonId: number, pokemonName: string) => {
+    if (
+      window.confirm(
+        `Êtes-vous sûr de vouloir retirer ${pokemonName} de l'équipe ?`
+      )
+    ) {
+      onDeletePokemon?.(team.id, pokemonId);
+    }
+  };
+
   return (
     <div className="team">
       <button
         type="button"
-        className="delete-btn"
+        className="delete-btn-team"
         aria-label={`Supprimer l'équipe ${team.name}`}
         title="Supprimer l'équipe"
         onClick={handleDelete}
@@ -41,6 +52,15 @@ const Team: React.FC<TeamProps> = ({ team, onDelete }) => {
         {team.pokemons.length > 0 ? (
           team.pokemons.map((pokemon) => (
             <div key={pokemon.id} className="pokemon">
+              <button
+                type="button"
+                className="delete-btn-pokemon"
+                aria-label={`Retirer ${pokemon.name} de l'équipe`}
+                title="Retirer ce pokémon"
+                onClick={() => handleDeletePokemon(pokemon.id, pokemon.name)}
+              >
+                -
+              </button>
               <Sprite src={pokemon.sprite} alt={pokemon.name} />
               <p>{pokemon.name}</p>
             </div>

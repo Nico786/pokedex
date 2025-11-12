@@ -37,7 +37,7 @@ const List: React.FC<ListProps> = ({ revealedPokemonId }) => {
   return (
     <Row>
       {data.pokemons.map((pokemon: Pokemon, index: number) => (
-        <Col xs={6} md={4} lg={3} xl={1} key={index}>
+        <Col xs={6} md={3} xl={2} xxl={1} key={index}>
           <Card
             key={index}
             pokemon={pokemon}
