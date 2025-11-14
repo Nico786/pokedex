@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Row, Col, Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_TEAM, DELETE_TEAM } from "@/graphql/mutations";
+import {
+  CREATE_TEAM,
+  DELETE_TEAM,
+  REMOVE_POKEMON_FROM_TEAM,
+} from "@/graphql/mutations";
 import { GET_TEAMS } from "@/graphql/queries";
 import Team from "@/components/Team";
 import PokedexInput from "@/components/PokedexInput";
@@ -31,6 +35,23 @@ const TeamPage: React.FC = () => {
       });
     },
   });
+  const [removePokemonFromTeam] = useMutation(REMOVE_POKEMON_FROM_TEAM, {
+    update(cache, { data }) {
+      if (!data?.removePokemonFromTeam) return;
+      const existing = cache.readQuery<{ teams: any[] }>({ query: GET_TEAMS });
+      if (!existing) return;
+      cache.writeQuery({
+        query: GET_TEAMS,
+        data: {
+          teams: existing.teams.map((t) =>
+            t.id === data.removePokemonFromTeam.id
+              ? data.removePokemonFromTeam
+              : t
+          ),
+        },
+      });
+    },
+  });
   const { loading, error, data } = useQuery(GET_TEAMS);
 
   const handleCreateTeam = async (teamName: string) => {
@@ -51,6 +72,14 @@ const TeamPage: React.FC = () => {
       await deleteTeam({ variables: { id } });
     } catch (error) {
       console.error("Error deleting team:", error);
+    }
+  };
+
+  const handleDeletePokemon = async (teamId: number, pokemonId: number) => {
+    try {
+      await removePokemonFromTeam({ variables: { teamId, pokemonId } });
+    } catch (error) {
+      console.error("Error removing pokemon from team:", error);
     }
   };
 
@@ -75,7 +104,12 @@ const TeamPage: React.FC = () => {
           />
         </div>
         {data?.teams?.map((team: any) => (
-          <Team key={team.id} team={team} onDelete={handleDeleteTeam} />
+          <Team
+            key={team.id}
+            team={team}
+            onDelete={handleDeleteTeam}
+            onDeletePokemon={handleDeletePokemon}
+          />
         ))}
       </Col>
     </Row>

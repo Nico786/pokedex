@@ -30,3 +30,17 @@ export const ADD_POKEMON_TO_TEAM = gql`
     }
   }
 `;
+
+export const REMOVE_POKEMON_FROM_TEAM = gql`
+  mutation removePokemonFromTeam($teamId: Int!, $pokemonId: Int!) {
+    removePokemonFromTeam(teamId: $teamId, pokemonId: $pokemonId) {
+      id
+      name
+      pokemons {
+        id
+        name
+        sprite
+      }
+    }
+  }
+`;

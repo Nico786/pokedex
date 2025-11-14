@@ -100,5 +100,36 @@ export const resolvers = {
         throw error;
       }
     },
+    removePokemonFromTeam: async (_, { teamId, pokemonId }) => {
+      try {
+        await prisma.teamPokemon.delete({
+          where: {
+            teamId_pokemonId: { teamId, pokemonId },
+          },
+        });
+
+        const updatedTeam = await prisma.team.findUnique({
+          where: { id: teamId },
+          include: { pokemons: { include: { pokemon: true } } },
+        });
+
+        if (!updatedTeam) {
+          throw new Error("Team not found");
+        }
+
+        return {
+          id: updatedTeam.id,
+          name: updatedTeam.name,
+          pokemons: updatedTeam.pokemons.map((tp) => ({
+            id: tp.pokemon.id,
+            name: tp.pokemon.name,
+            sprite: tp.pokemon.sprite,
+          })),
+        };
+      } catch (error) {
+        console.error("Error removing pokemon from team:", error);
+        throw error;
+      }
+    },
   },
 };
