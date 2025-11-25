@@ -9,6 +9,7 @@ Using public Pokémon API data from [Tyradex](https://tyradex.vercel.app/).
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Prerequisites](#prerequisites)
+- [Security](#security)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
 - [Database Management](#database-management)
@@ -52,6 +53,29 @@ Before you begin, ensure you have the following installed:
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - [Docker](https://www.docker.com/get-started) and Docker Compose
 - [Git](https://git-scm.com/)
+
+## Security
+
+⚠️ **Important**: This project uses environment variables to manage sensitive information.
+
+**Before running the project:**
+
+1. Copy `.env.example` to `.env` in the root directory:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Copy `server/.env.example` to `server/.env`:
+   ```bash
+   cp server/.env.example server/.env
+   ```
+
+3. **Update the values** in both `.env` files with your own credentials, especially for production:
+   - Change default passwords
+   - Use strong, unique passwords
+   - Never commit `.env` files to version control
+
+See [SECURITY.md](SECURITY.md) for more information about security best practices.
 
 ## Getting Started
 

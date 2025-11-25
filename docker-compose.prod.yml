@@ -1,39 +1,31 @@
 services:
   web:
-    container_name: web
+    container_name: web-prod
     build:
       context: .
-      target: development
+      target: production
     ports:
-      - "5173:5173"
-    env_file:
-      - .env
-    depends_on:
-      - db
+      - "80:80"
     restart: always
-    volumes:
-      - .:/app
-      - /app/node_modules
 
   server:
-    container_name: server
+    container_name: server-prod
     build:
       context: ./server/
-      target: development
+      target: production
     ports:
       - "4000:4000"
     env_file:
       - ./server/.env
+    environment:
+      - NODE_ENV=production
     depends_on:
       db:
         condition: service_healthy
     restart: always
-    volumes:
-      - ./server:/app
-      - /app/node_modules
 
   db:
-    container_name: db
+    container_name: db-prod
     image: postgres:16
     ports:
       - "5432:5432"
@@ -45,8 +37,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-db}
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 1m30s
-      timeout: 30s
+      interval: 30s
+      timeout: 10s
       retries: 5
       start_period: 30s
     restart: always
