@@ -11,8 +11,8 @@ CMD ["npm", "run", "dev"]
 # Build stage
 FROM node:22-bookworm-slim AS builder
 WORKDIR /app
-COPY package.json tsconfig*.json vite.config.ts ./
-RUN npm ci --only=production=false
+COPY package.json package-lock.json tsconfig*.json vite.config.ts ./
+RUN npm ci
 COPY . .
 RUN npm run build
 

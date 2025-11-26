@@ -1,5 +1,5 @@
 import { RESTDataSource } from '@apollo/datasource-rest';
-import { type Pokemon } from '../../src/lib/types';
+import { type Pokemon } from './types.js';
 
 class PokedexAPI extends RESTDataSource {
   override baseURL = 'https://tyradex.app/api/v1/';

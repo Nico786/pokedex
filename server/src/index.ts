@@ -1,8 +1,8 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { gql } from 'graphql-tag';
-import { PokedexAPI } from './pokedex-api';
-import { resolvers } from './resolvers';
+import { PokedexAPI } from './pokedex-api.js';
+import { resolvers } from './resolvers.js';
 
 interface ContextValue {
   dataSources: {
