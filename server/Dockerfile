@@ -1,34 +1,45 @@
-# Development stage
-FROM node:22-bookworm-slim AS development
+# Base stage - dependencies and system pkgs
+FROM node:22-alpine AS base
 WORKDIR /app
-RUN apt-get update -y && apt-get install -y openssl
-COPY package.json package-lock.json tsconfig.json ./
+RUN apk add --no-cache openssl
+COPY package.json package-lock.json ./
+
+# Prisma stage - generate shared Prisma client
+FROM base AS prisma
 RUN npm install
 COPY prisma ./prisma
 RUN npx prisma generate
+
+# Development stage
+FROM base AS development
+RUN npm install
+COPY --from=prisma /app/prisma ./prisma
+COPY --from=prisma /app/node_modules/.prisma ./node_modules/.prisma
+COPY tsconfig.json ./
 COPY . .
 EXPOSE 4000
 CMD ["npm", "run", "dev"]
 
 # Build stage
-FROM node:22-bookworm-slim AS builder
-WORKDIR /app
-RUN apt-get update -y && apt-get install -y openssl
-COPY package.json package-lock.json tsconfig.json ./
+FROM base AS builder
 RUN npm ci
-COPY prisma ./prisma
-RUN npx prisma generate
+COPY --from=prisma /app/node_modules/.prisma ./node_modules/.prisma
+COPY tsconfig.json ./
 COPY . .
 RUN npm run compile
 
+# Production dependencies stage
+FROM base AS prod-dependencies
+RUN npm ci --omit=dev && npm cache clean --force
+
 # Production stage
-FROM node:22-bookworm-slim AS production
+FROM node:22-alpine AS production
 WORKDIR /app
-RUN apt-get update -y && apt-get install -y openssl && apt-get clean && rm -rf /var/lib/apt/lists/*
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN apk add --no-cache openssl
+COPY --from=prod-dependencies /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/prisma ./prisma
+COPY --from=prisma /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=prisma /app/prisma ./prisma
+COPY package.json ./
 EXPOSE 4000
 CMD ["npm", "start"]

@@ -1,18 +1,24 @@
-# Development stage
-FROM node:22-bookworm-slim AS development
+# Base stage - shared dependencies
+FROM node:22-alpine AS base
 WORKDIR /app
-RUN apt-get update -y && apt-get install -y openssl
-COPY package.json tsconfig*.json vite.config.ts ./
+COPY package.json package-lock.json ./
+
+# Development stage
+FROM base AS development
 RUN npm install
+COPY tsconfig*.json vite.config.ts ./
 COPY . .
 EXPOSE 5173
 CMD ["npm", "run", "dev"]
 
+# Dependencies stage for production
+FROM base AS dependencies
+RUN npm ci --omit=dev
+
 # Build stage
-FROM node:22-bookworm-slim AS builder
-WORKDIR /app
-COPY package.json package-lock.json tsconfig*.json vite.config.ts ./
+FROM base AS builder
 RUN npm ci
+COPY tsconfig*.json vite.config.ts ./
 COPY . .
 RUN npm run build
 
