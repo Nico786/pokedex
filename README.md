@@ -88,10 +88,10 @@ cd pokemon-project
 
 ### 2. Start the Application with Docker
 
-The easiest way to run the application is using Docker Compose, which will start all services (frontend, backend, and database):
-
 ```bash
-docker compose up -d
+# Build images and start all services
+docker compose up --build -d # DEV images
+docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d # PROD images
 ```
 
 This command will:
@@ -139,9 +139,6 @@ pokemon-project/
 ### Docker Commands
 
 ```bash
-# Start all services in detached mode
-docker compose up -d
-
 # Stop all services
 docker compose down
 
