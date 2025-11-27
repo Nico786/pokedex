@@ -1,18 +1,13 @@
 services:
   web:
-    container_name: web-prod
-    build:
-      context: .
-      target: production
+    image: nth786/pokemon-web:latest
     ports:
       - "8080:80"
     restart: always
 
   server:
     container_name: server-prod
-    build:
-      context: ./server/
-      target: production
+    image: nth786/pokemon-server:latest
     ports:
       - "4000:4000"
     env_file:
