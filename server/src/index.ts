@@ -69,7 +69,6 @@ const typeDefs = gql`
 
 const server = new ApolloServer<ContextValue>({ typeDefs, resolvers });
 const { url } = await startStandaloneServer(server, {
-
   context: async () => {
     const { cache } = server;
     return {
