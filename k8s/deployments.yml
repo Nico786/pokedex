@@ -15,6 +15,7 @@ spec:
       containers:
         - name: pokemon-server
           image: nth786/pokemon-server:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 4000
           env:
@@ -38,6 +39,7 @@ spec:
       containers:
         - name: pokemon-web
           image: nth786/pokemon-web:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---
