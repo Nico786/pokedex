@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App.tsx";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: import.meta.env.VITE_API_URL,
   cache: new InMemoryCache(),
 });
 
