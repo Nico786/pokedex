@@ -17,6 +17,8 @@ RUN npm ci --omit=dev
 
 # Build stage
 FROM base AS builder
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
 RUN npm ci
 COPY tsconfig*.json vite.config.ts ./
 COPY . .
