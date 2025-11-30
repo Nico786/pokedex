@@ -42,12 +42,12 @@ jobs:
 
       - name: Build and push web image
         uses: docker/build-push-action@v5
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
         with:
           context: .
           file: ./Dockerfile
           target: production
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
           push: true
           tags: ${{ steps.meta-web.outputs.tags }}
           labels: ${{ steps.meta-web.outputs.labels }}
