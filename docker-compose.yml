@@ -8,6 +8,8 @@ services:
       - "5173:5173"
     env_file:
       - .env
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
     depends_on:
       - db
     restart: always
