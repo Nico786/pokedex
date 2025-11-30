@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pokemon-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pokemon-server
+  template:
+    metadata:
+      labels:
+        app: pokemon-server
+    spec:
+      containers:
+        - name: pokemon-server
+          image: nth786/pokemon-server:latest
+          ports:
+            - containerPort: 4000
+          env:
+            - name: NODE_ENV
+              value: "production"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pokemon-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pokemon-web
+  template:
+    metadata:
+      labels:
+        app: pokemon-web
+    spec:
+      containers:
+        - name: pokemon-web
+          image: nth786/pokemon-web:latest
+          ports:
+            - containerPort: 80
