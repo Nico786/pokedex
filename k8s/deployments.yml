@@ -40,3 +40,36 @@ spec:
           image: nth786/pokemon-web:latest
           ports:
             - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pokemon-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pokemon-db
+  template:
+    metadata:
+      labels:
+        app: pokemon-db
+    spec:
+      containers:
+        - name: pokemon-db
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+            - name: POSTGRES_DB
+              value: "db"
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-data
+          emptyDir: {}
