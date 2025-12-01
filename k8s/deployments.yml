@@ -21,6 +21,8 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
+            - name: DATABASE_URL
+              value: "postgresql://postgres:password@pokemon-db:5432/db?schema=public"
 ---
 apiVersion: apps/v1
 kind: Deployment
