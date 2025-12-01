@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prisma-migrate
+spec:
+  template:
+    spec:
+      containers:
+        - name: migration
+          image: nth786/pokemon-server:latest
+          command: ["sh", "-c", "npx prisma migrate deploy"]
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:password@pokemon-db:5432/db?schema=public"
+      restartPolicy: OnFailure
