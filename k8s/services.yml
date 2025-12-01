@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pokemon-server
+spec:
+  selector:
+    app: pokemon-server
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pokemon-web
+spec:
+  selector:
+    app: pokemon-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pokemon-db
+spec:
+  selector:
+    app: pokemon-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
