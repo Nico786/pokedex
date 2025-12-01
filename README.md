@@ -40,3 +40,8 @@ kubectl apply -f k8s/
 - [Prisma Docs](https://www.prisma.io/docs)
 - [Apollo Server Docs](https://www.apollographql.com/docs/apollo-server/)
 - [React Docs](https://react.dev/)
+
+## Screenshots
+<img width="1897" height="992" alt="Capture d’écran du 2025-12-01 23-26-21" src="https://github.com/user-attachments/assets/06bb9272-9b34-4c80-8960-9bd59d57ab42" />
+<img width="1897" height="992" alt="Capture d’écran du 2025-12-01 23-26-30" src="https://github.com/user-attachments/assets/7d67fbff-5ed2-415f-a73d-4ba6818a33a4" />
+
