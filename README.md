@@ -24,8 +24,9 @@ docker compose up --build -d
 ```bash
 minikube start
 minikube addons enable ingress
+minikube ip
+echo $(minikube ip) pokemon.local > /etc/hosts
 kubectl apply -f k8s/
-# Add "<minikube_ip> pokemon.local" to /etc/hosts
 ```
 - App: http://pokemon.local
 
